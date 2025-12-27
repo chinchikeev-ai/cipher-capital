@@ -3,35 +3,37 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Zap, Brain, Layers, ArrowUpRight } from 'lucide-react';
 import { DataWave } from './DataWave';
-
-const services = [
-  {
-    icon: Zap,
-    title: 'High-Frequency Execution',
-    description: 'Microsecond latency infrastructure for global crypto-exchange arbitrage and liquidity capture.',
-    stats: { value: '0.3ms', label: 'Avg. Latency' },
-    accent: 'primary',
-  },
-  {
-    icon: Brain,
-    title: 'Market Emulation & Prediction',
-    description: 'Our core engine simulates 10,000+ individual trader behaviors simultaneously to forecast volatility and stress-test strategies in real-time.',
-    stats: { value: '10K+', label: 'Simulations/sec' },
-    accent: 'accent',
-    hasDataWave: true,
-  },
-  {
-    icon: Layers,
-    title: 'Yield Architecture',
-    description: 'Sophisticated liquidity provisioning and yield farming automation across Tier-1 decentralized protocols.',
-    stats: { value: '24.7%', label: 'Avg. APY' },
-    accent: 'primary',
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Zap,
+      title: t('services.hft.title'),
+      description: t('services.hft.desc'),
+      stats: { value: '0.3ms', label: t('services.hft.stat') },
+      accent: 'primary',
+    },
+    {
+      icon: Brain,
+      title: t('services.ai.title'),
+      description: t('services.ai.desc'),
+      stats: { value: '10K+', label: t('services.ai.stat') },
+      accent: 'accent',
+      hasDataWave: true,
+    },
+    {
+      icon: Layers,
+      title: t('services.defi.title'),
+      description: t('services.defi.desc'),
+      stats: { value: '24.7%', label: t('services.defi.stat') },
+      accent: 'primary',
+    },
+  ];
 
   return (
     <section id="solutions" className="py-32 relative" ref={ref}>
@@ -46,14 +48,13 @@ export const ServicesSection = () => {
           className="text-center mb-20"
         >
           <span className="text-xs font-medium text-primary uppercase tracking-widest">
-            Institutional Solutions
+            {t('services.badge')}
           </span>
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-            What We Do
+            {t('services.title')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Enterprise-grade infrastructure designed for capital efficiency 
-            and systematic alpha generation.
+            {t('services.subtitle')}
           </p>
         </motion.div>
 

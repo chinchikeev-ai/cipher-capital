@@ -2,8 +2,18 @@ import { motion } from 'framer-motion';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DataParticles } from './DataParticles';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const HeroSection = () => {
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: '$2.4B+', label: t('hero.stat1') },
+    { value: '0.3ms', label: t('hero.stat2') },
+    { value: '99.97%', label: t('hero.stat3') },
+    { value: '150+', label: t('hero.stat4') },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
@@ -47,7 +57,7 @@ export const HeroSection = () => {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full text-xs font-medium text-muted-foreground letter-spacing-wider uppercase">
             <TrendingUp className="w-3 h-3 text-primary" />
-            Institutional Grade Infrastructure
+            {t('hero.badge')}
           </span>
         </motion.div>
 
@@ -57,8 +67,8 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
           className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-8 max-w-5xl mx-auto leading-[1.1]"
         >
-          <span className="text-foreground">Dominating Digital Markets through </span>
-          <span className="text-gradient-primary">Algorithmic Intelligence</span>
+          <span className="text-foreground">{t('hero.title1')} </span>
+          <span className="text-gradient-primary">{t('hero.title2')}</span>
         </motion.h1>
 
         <motion.p
@@ -67,8 +77,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed"
         >
-          Institutional liquidity management and HFT strategies powered by our 
-          proprietary <span className="text-foreground font-medium">AI Analyze Trading Engine</span>.
+          {t('hero.subtitle')} <span className="text-foreground font-medium">{t('hero.engine')}</span>.
         </motion.p>
 
         <motion.div
@@ -78,11 +87,11 @@ export const HeroSection = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Button variant="cta" size="xl" className="group">
-            Request Access
+            {t('hero.cta')}
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Button>
           <Button variant="institutional" size="xl">
-            View Documentation
+            {t('hero.docs')}
           </Button>
         </motion.div>
 
@@ -93,12 +102,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
         >
-          {[
-            { value: '$2.4B+', label: 'Assets Under Management' },
-            { value: '0.3ms', label: 'Average Latency' },
-            { value: '99.97%', label: 'System Uptime' },
-            { value: '150+', label: 'Institutional Partners' },
-          ].map((stat, index) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="font-display text-2xl md:text-3xl font-bold text-foreground mb-1">
                 {stat.value}

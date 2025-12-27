@@ -1,38 +1,55 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { GraduationCap, Clock, Users, ArrowRight, ChevronRight } from 'lucide-react';
+import { Clock, Users, ArrowRight, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const programs = [
-  {
-    level: 'Foundation',
-    title: 'Algorithmic Trading Fundamentals',
-    description: 'Core concepts of systematic trading, market microstructure, and quantitative analysis.',
-    duration: '8 Weeks',
-    cohort: '25 Participants',
-    modules: ['Market Microstructure', 'Statistical Arbitrage', 'Risk Management'],
-  },
-  {
-    level: 'Advanced',
-    title: 'Machine Learning for Markets',
-    description: 'Deep learning architectures, feature engineering, and model deployment for alpha generation.',
-    duration: '12 Weeks',
-    cohort: '15 Participants',
-    modules: ['Neural Networks', 'Time Series Analysis', 'Portfolio Optimization'],
-  },
-  {
-    level: 'Executive',
-    title: 'Institutional Strategy Design',
-    description: 'Enterprise-grade strategy development, regulatory compliance, and institutional operations.',
-    duration: '16 Weeks',
-    cohort: '10 Participants',
-    modules: ['Compliance Frameworks', 'Capital Allocation', 'Prime Brokerage'],
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const AcademySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { t } = useLanguage();
+
+  const programs = [
+    {
+      level: t('academy.foundation'),
+      title: t('academy.course1.title'),
+      description: t('academy.course1.desc'),
+      duration: 8,
+      cohort: 25,
+      modules: [
+        t('academy.module.microstructure'),
+        t('academy.module.arbitrage'),
+        t('academy.module.risk'),
+      ],
+      levelType: 'foundation',
+    },
+    {
+      level: t('academy.advanced'),
+      title: t('academy.course2.title'),
+      description: t('academy.course2.desc'),
+      duration: 12,
+      cohort: 15,
+      modules: [
+        t('academy.module.neural'),
+        t('academy.module.timeseries'),
+        t('academy.module.portfolio'),
+      ],
+      levelType: 'advanced',
+    },
+    {
+      level: t('academy.executive'),
+      title: t('academy.course3.title'),
+      description: t('academy.course3.desc'),
+      duration: 16,
+      cohort: 10,
+      modules: [
+        t('academy.module.compliance'),
+        t('academy.module.capital'),
+        t('academy.module.prime'),
+      ],
+      levelType: 'executive',
+    },
+  ];
 
   return (
     <section id="academy" className="py-32 relative" ref={ref}>
@@ -48,18 +65,17 @@ export const AcademySection = () => {
         >
           <div>
             <span className="text-xs font-medium text-primary uppercase tracking-widest">
-              The Academy
+              {t('academy.badge')}
             </span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-4">
-              Knowledge Transfer
+              {t('academy.title')}
             </h2>
             <p className="text-muted-foreground max-w-xl text-lg">
-              Executive programs designed for institutional professionals 
-              seeking systematic trading expertise.
+              {t('academy.subtitle')}
             </p>
           </div>
           <Button variant="institutional" size="lg" className="group self-start">
-            View All Programs
+            {t('academy.viewAll')}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>
@@ -77,9 +93,9 @@ export const AcademySection = () => {
                 {/* Header */}
                 <div className="p-6 border-b border-border/50">
                   <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider mb-4 ${
-                    program.level === 'Executive' 
+                    program.levelType === 'executive' 
                       ? 'bg-accent/10 text-accent' 
-                      : program.level === 'Advanced'
+                      : program.levelType === 'advanced'
                       ? 'bg-primary/10 text-primary'
                       : 'bg-muted text-muted-foreground'
                   }`}>
@@ -98,11 +114,15 @@ export const AcademySection = () => {
                   <div className="flex items-center gap-6">
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{program.duration}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {program.duration} {t('academy.weeks')}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{program.cohort}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {program.cohort} {t('academy.participants')}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -110,7 +130,7 @@ export const AcademySection = () => {
                 {/* Modules */}
                 <div className="p-6">
                   <span className="text-xs text-muted-foreground uppercase tracking-wider mb-4 block">
-                    Key Modules
+                    {t('academy.keyModules')}
                   </span>
                   <ul className="space-y-2">
                     {program.modules.map((module) => (
@@ -128,7 +148,7 @@ export const AcademySection = () => {
                     variant="ghost" 
                     className="w-full justify-between group/btn hover:bg-primary/5"
                   >
-                    <span>Request Syllabus</span>
+                    <span>{t('academy.syllabus')}</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                   </Button>
                 </div>

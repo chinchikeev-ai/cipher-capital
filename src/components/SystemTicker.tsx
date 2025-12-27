@@ -1,20 +1,22 @@
-import { motion } from 'framer-motion';
 import { Activity, CheckCircle, Server, Shield, Wifi } from 'lucide-react';
-
-const statusItems = [
-  { icon: Server, label: 'Primary Cluster', status: 'Operational', latency: '0.28ms' },
-  { icon: Wifi, label: 'Network Status', status: 'Optimal', latency: '99.99%' },
-  { icon: Shield, label: 'Security Layer', status: 'Active', latency: 'Level 5' },
-  { icon: Activity, label: 'Trading Engine', status: 'Online', latency: '12,847 ops/s' },
-  { icon: Server, label: 'Backup Systems', status: 'Standby', latency: 'Ready' },
-  { icon: Wifi, label: 'Global CDN', status: 'Active', latency: '23 Nodes' },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const SystemTicker = () => {
+  const { t } = useLanguage();
+
+  const statusItems = [
+    { icon: Server, label: t('ticker.cluster'), status: t('ticker.operational'), latency: '0.28ms' },
+    { icon: Wifi, label: t('ticker.network'), status: t('ticker.optimal'), latency: '99.99%' },
+    { icon: Shield, label: t('ticker.security'), status: t('ticker.active'), latency: 'Level 5' },
+    { icon: Activity, label: t('ticker.engine'), status: t('ticker.online'), latency: '12,847 ops/s' },
+    { icon: Server, label: t('ticker.backup'), status: t('ticker.standby'), latency: t('ticker.ready') },
+    { icon: Wifi, label: t('ticker.cdn'), status: t('ticker.active'), latency: `23 ${t('ticker.nodes')}` },
+  ];
+
   return (
     <div className="py-6 border-y border-border/50 bg-secondary/30 overflow-hidden">
       <div className="flex">
-        <motion.div
+        <div
           className="flex gap-12 ticker-scroll"
           style={{ minWidth: 'max-content' }}
         >
@@ -31,7 +33,7 @@ export const SystemTicker = () => {
               <span className="text-xs text-primary font-mono">{item.latency}</span>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

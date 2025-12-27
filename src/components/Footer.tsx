@@ -1,13 +1,36 @@
 import { Activity, Linkedin, Twitter, Github } from 'lucide-react';
-
-const footerLinks = {
-  Solutions: ['HFT Infrastructure', 'AI Engine', 'DeFi Protocols', 'Risk Management'],
-  Company: ['About', 'Careers', 'Press', 'Contact'],
-  Resources: ['Documentation', 'API Reference', 'Security', 'Compliance'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Disclosures'],
-};
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const Footer = () => {
+  const { t } = useLanguage();
+
+  const footerLinks = {
+    [t('footer.solutions')]: [
+      t('footer.hft'),
+      t('footer.aiEngine'),
+      t('footer.defi'),
+      t('footer.riskMgmt'),
+    ],
+    [t('footer.company')]: [
+      t('footer.about'),
+      t('footer.careers'),
+      t('footer.press'),
+      t('footer.contact'),
+    ],
+    [t('footer.resources')]: [
+      t('footer.docs'),
+      t('footer.api'),
+      t('footer.security'),
+      t('footer.compliance'),
+    ],
+    [t('footer.legal')]: [
+      t('footer.privacy'),
+      t('footer.terms'),
+      t('footer.cookies'),
+      t('footer.disclosures'),
+    ],
+  };
+
   return (
     <footer className="border-t border-border/50 bg-background">
       <div className="container mx-auto px-6 py-16">
@@ -21,8 +44,7 @@ export const Footer = () => {
               </span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-6">
-              Institutional-grade algorithmic trading infrastructure for 
-              the digital asset ecosystem.
+              {t('footer.description')}
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -62,10 +84,10 @@ export const Footer = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Nexus Capital. All rights reserved.
+            © {new Date().getFullYear()} Nexus Capital. {t('footer.rights')}
           </p>
           <p className="text-xs text-muted-foreground">
-            Regulated by the Financial Conduct Authority (FCA) • CRD IV Compliant
+            {t('footer.regulated')}
           </p>
         </div>
       </div>

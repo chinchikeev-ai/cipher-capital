@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Activity } from 'lucide-react';
+import { Menu, X, Activity, Globe, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const navItems = [
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Technology', href: '#technology' },
-  { label: 'Academy', href: '#academy' },
-];
+import { useLanguage, languages } from '@/contexts/LanguageContext';
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+
+  const navItems = [
+    { label: t('nav.solutions'), href: '#solutions' },
+    { label: t('nav.technology'), href: '#technology' },
+    { label: t('nav.academy'), href: '#academy' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +23,8 @@ export const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const currentLang = languages.find((l) => l.code === language);
 
   return (
     <motion.header
@@ -57,10 +62,50 @@ export const Navigation = () => {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <div className="hidden lg:block">
+        {/* Language Switcher & CTA */}
+        <div className="hidden lg:flex items-center gap-4">
+          {/* Language Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Globe className="w-4 h-4" />
+              <span>{currentLang?.flag}</span>
+              <ChevronDown className={`w-3 h-3 transition-transform ${isLangOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            <AnimatePresence>
+              {isLangOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full right-0 mt-2 glass-card rounded-lg border border-border overflow-hidden min-w-[140px]"
+                >
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        setIsLangOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-muted ${
+                        language === lang.code ? 'text-primary bg-muted/50' : 'text-foreground'
+                      }`}
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.label}</span>
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <Button variant="cta" size="lg">
-            Institutional Access
+            {t('nav.access')}
           </Button>
         </div>
 
@@ -98,8 +143,27 @@ export const Navigation = () => {
                   {item.label}
                 </motion.a>
               ))}
+              
+              {/* Mobile Language Switcher */}
+              <div className="flex gap-2 pt-4 border-t border-border/50">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors ${
+                      language === lang.code 
+                        ? 'bg-primary/10 text-primary border border-primary/30' 
+                        : 'bg-muted/50 text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <span>{lang.flag}</span>
+                    <span>{lang.label}</span>
+                  </button>
+                ))}
+              </div>
+
               <Button variant="cta" size="lg" className="mt-4">
-                Institutional Access
+                {t('nav.access')}
               </Button>
             </div>
           </motion.div>

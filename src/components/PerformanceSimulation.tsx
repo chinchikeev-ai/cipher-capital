@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Activity, Cpu, Database, Network, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface DataCluster {
   id: number;
@@ -21,6 +22,7 @@ export const PerformanceSimulation = () => {
     throughput: 0,
     accuracy: 99.2,
   });
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!isRunning) return;
@@ -80,13 +82,13 @@ export const PerformanceSimulation = () => {
           className="text-center mb-16"
         >
           <span className="text-xs font-medium text-accent uppercase tracking-widest">
-            Core Technology
+            {t('tech.badge')}
           </span>
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-            AI Analyze Engine
+            {t('tech.title')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Real-time performance visualization of our proprietary market emulation system.
+            {t('tech.subtitle')}
           </p>
         </motion.div>
 
@@ -104,9 +106,9 @@ export const PerformanceSimulation = () => {
                   <Cpu className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-display font-semibold">Performance Simulation</h3>
+                  <h3 className="font-display font-semibold">{t('tech.simulation')}</h3>
                   <p className="text-xs text-muted-foreground">
-                    {isRunning ? 'Processing data clusters...' : 'Simulation paused'}
+                    {isRunning ? t('tech.processing') : t('tech.paused')}
                   </p>
                 </div>
               </div>
@@ -118,12 +120,12 @@ export const PerformanceSimulation = () => {
                 {isRunning ? (
                   <>
                     <Pause className="w-4 h-4" />
-                    Pause
+                    {t('tech.pause')}
                   </>
                 ) : (
                   <>
                     <Play className="w-4 h-4" />
-                    Resume
+                    {t('tech.resume')}
                   </>
                 )}
               </Button>
@@ -233,7 +235,7 @@ export const PerformanceSimulation = () => {
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Database className="w-4 h-4 text-primary" />
                   <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                    Processed
+                    {t('tech.processed')}
                   </span>
                 </div>
                 <div className="font-display text-2xl font-bold text-foreground">
@@ -244,7 +246,7 @@ export const PerformanceSimulation = () => {
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Network className="w-4 h-4 text-accent" />
                   <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                    Throughput
+                    {t('tech.throughput')}
                   </span>
                 </div>
                 <div className="font-display text-2xl font-bold text-foreground">
@@ -256,7 +258,7 @@ export const PerformanceSimulation = () => {
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Activity className="w-4 h-4 text-primary" />
                   <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                    Accuracy
+                    {t('tech.accuracy')}
                   </span>
                 </div>
                 <div className="font-display text-2xl font-bold text-foreground">

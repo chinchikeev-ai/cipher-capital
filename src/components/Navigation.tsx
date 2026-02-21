@@ -45,7 +45,7 @@ export const Navigation = () => {
             <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
           <span className="font-display font-semibold text-xl tracking-tight text-foreground">
-            NEXUS<span className="text-primary">CAPITAL</span>
+            AURUM<span className="text-primary">CRYPTO</span>
           </span>
         </a>
 

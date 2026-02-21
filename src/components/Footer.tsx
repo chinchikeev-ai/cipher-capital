@@ -40,7 +40,7 @@ export const Footer = () => {
             <a href="#" className="flex items-center gap-3 mb-6">
               <Activity className="w-8 h-8 text-primary" />
               <span className="font-display font-semibold text-xl tracking-tight text-foreground">
-                NEXUS<span className="text-primary">CAPITAL</span>
+                AURUM<span className="text-primary">CRYPTO</span>
               </span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-6">
@@ -84,7 +84,7 @@ export const Footer = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Nexus Capital. {t('footer.rights')}
+            © {new Date().getFullYear()} AURUMCRYPTO. {t('footer.rights')}
           </p>
           <p className="text-xs text-muted-foreground">
             {t('footer.regulated')}
